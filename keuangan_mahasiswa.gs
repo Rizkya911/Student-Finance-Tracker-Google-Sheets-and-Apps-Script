@@ -1,16 +1,3 @@
-/**
- * PENCATATAN KEUANGAN MAHASISWA (Google Apps Script)
- * ---------------------------------------------------
- * Cara pakai:
- *  1. Buka Google Sheets baru > Ekstensi > Apps Script
- *  2. Hapus isi Code.gs, tempel seluruh kode ini, simpan
- *  3. Jalankan fungsi setupKeuangan() sekali (setujui izin akses)
- *  4. Selanjutnya gunakan menu "💰 Keuangan" yang muncul di spreadsheet
- *
- * Sheet yang dibuat: Rekap, Pengaturan, Nov 2026, Des 2026, Jan 2027, Feb 2027, Mar 2027
- * Saldo akhir tiap bulan otomatis menjadi baris pemasukan pertama bulan berikutnya.
- */
-
 const CFG = {
   PENGATURAN: 'Pengaturan',
   REKAP: 'Rekap',
@@ -52,7 +39,7 @@ function onOpen() {
     .addToUi();
 }
 
-/* ===================== SETUP ===================== */
+===================== SETUP ===================== 
 
 function setupKeuangan() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -81,7 +68,7 @@ function setupKeuangan() {
     'Isi saldo awal (jika ada) dan atur kategori di sheet "Pengaturan".');
 }
 
-/* ===================== SHEET PENGATURAN ===================== */
+===================== SHEET PENGATURAN =====================
 
 function buatPengaturan(ss) {
   if (ss.getSheetByName(CFG.PENGATURAN)) return;
@@ -104,7 +91,7 @@ function buatPengaturan(ss) {
   sh.setTabColor('#9e9e9e');
 }
 
-/* ===================== SHEET BULANAN ===================== */
+===================== SHEET BULANAN =====================
 
 function buatSheetBulan(ss, b, idx) {
   const nama = namaSheet(b);
@@ -232,7 +219,7 @@ function buatRekapKategori(sh) {
   sh.getRange(R.FIRST_ROW, 13, n, 1).setNumberFormat(RUPIAH);
 }
 
-/* ===================== SHEET REKAP ===================== */
+===================== SHEET REKAP =====================
 
 function buatRekap(ss) {
   if (ss.getSheetByName(CFG.REKAP)) return;
@@ -281,9 +268,10 @@ function buatRekap(ss) {
   sh.setTabColor('#34a853');
 }
 
-/* ===================== DROPDOWN KATEGORI ===================== */
+===================== DROPDOWN KATEGORI =====================
 
-/** Dipanggil otomatis saat kolom "Jenis" diubah: dropdown Kategori menyesuaikan. */
+Dipanggil otomatis saat kolom "Jenis" diubah: dropdown Kategori menyesuaikan.
+
 function onEdit(e) {
   if (!e || !e.range) return;
   const sh = e.range.getSheet();
@@ -320,7 +308,8 @@ function terapkanKategori(sh, row) {
   }
 }
 
-/** Terapkan ulang dropdown kategori ke semua baris yang sudah terisi (lewat menu). */
+Terapkan ulang dropdown kategori ke semua baris yang sudah terisi (lewat menu). 
+
 function segarkanDropdown() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   CFG.BULAN.forEach(b => {
